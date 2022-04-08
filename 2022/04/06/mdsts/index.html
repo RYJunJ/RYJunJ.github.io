@@ -18,18 +18,18 @@
   
     <meta name="description" content="这是一个md测试 asd dsad  sdsd ddd       sdasd  sdd  \[ \mathbf{V}_1 \times \mathbf{V}_2 &#x3D;  \begin{vmatrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial X}{\partial u} &amp;a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ms_test">
+<meta property="og:title" content="md_test">
 <meta property="og:url" content="http://ryjunj.github.io/2022/04/06/mdsts/index.html">
 <meta property="og:site_name" content="YJunJ&#39;s Blog">
 <meta property="og:description" content="这是一个md测试 asd dsad  sdsd ddd       sdasd  sdd  \[ \mathbf{V}_1 \times \mathbf{V}_2 &#x3D;  \begin{vmatrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial X}{\partial u} &amp;a">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-06T15:27:31.617Z">
-<meta property="article:modified_time" content="2022-04-07T00:46:41.135Z">
+<meta property="article:modified_time" content="2022-04-08T05:39:32.008Z">
 <meta property="article:author" content="YJunJ">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>ms_test - YJunJ&#39;s Blog</title>
+  <title>md_test - YJunJ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -175,9 +175,9 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="ms_test">
+            <span class="h2" id="subtitle" title="md_test">
               
-                ms_test
+                md_test
               
             </span>
 
@@ -236,7 +236,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ms_test</h1>
+            <h1 style="display: none">md_test</h1>
             
             <div class="markdown-body">
               <h1 id="这是一个md测试">这是一个md测试</h1>
@@ -476,6 +476,48 @@ sdd</li>
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
 
 
 
