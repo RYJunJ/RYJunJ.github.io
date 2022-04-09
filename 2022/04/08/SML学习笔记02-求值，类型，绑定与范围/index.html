@@ -24,7 +24,7 @@
 <meta property="og:description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程： ​ 命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-08T15:32:28.395Z">
-<meta property="article:modified_time" content="2022-04-09T07:31:43.044Z">
+<meta property="article:modified_time" content="2022-04-09T15:37:08.966Z">
 <meta property="article:author" content="YJunJ">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.9k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9 分钟
+      17 分钟
     </span>
   
 
@@ -276,7 +276,17 @@ class="math inline">\(v\)</span>（值也是表达式的一个子集）</li>
 <h3 id="类型">2.1 类型</h3>
 <p>何为类型？类型是对表达式化简所得最终值的类型的预测。</p>
 <p>例：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">-</span> 表达式 3+4 的类型是整数，因为我们可以预测出 3+4 化简完的最终值是 7 ，而 7 是个整数，所以表达式的类型是整数<br><span class="hljs-bullet">-</span> 表达式 5 的类型也是整数，因为我们可以预测出 5 化简完还是 5 ，是个整数<br></code></pre></td></tr></table></figure>
+<ul>
+<li>表达式 <span class="math inline">\(3+4\)</span>
+的类型是整数，因为我们可以预测出 <span
+class="math inline">\(3+4\)</span> 化简完的最终值是 <span
+class="math inline">\(7\)</span> ，而 <span
+class="math inline">\(7\)</span> 是个整数，所以表达式的类型是整数</li>
+<li>表达式 <span class="math inline">\(5\)</span>
+的类型也是整数，因为我们可以预测出 <span
+class="math inline">\(5\)</span> 化简完还是 <span
+class="math inline">\(5\)</span> ，是个整数</li>
+</ul>
 <blockquote>
 <p>为何 <span class="math inline">\(5\)</span>
 也称作表达式？因为在上文ML的三个元素中我们提到 值 <span
@@ -291,8 +301,17 @@ class="math inline">\(+\)</span> 一个字符串会得到什么类型</li>
 <h4 id="well-typed-type-checks-以及-ill-typed">2.1.1 <em>well-typed,
 type-checks</em> 以及 <em>ill-typed</em></h4>
 <p><em>well-typed</em> 与 <em>type-checks</em>:</p>
-<p>​ 当一个表达式至少存在一种类型时即可称其为 <em>well-typed</em> 或
-<em>type-checks</em></p>
+<p>​ 当一个表达式<strong>至少存在一种</strong>类型时即可称其为
+<em>well-typed</em> 或 <em>type-checks</em></p>
+<blockquote>
+<p><font color=red><strong>注意：</strong></font></p>
+<p>​ 符号 “ <span class="math inline">\(:\)</span> ”表示 “有一个类型”</p>
+<p>​ 如：<span class="math inline">\(e:t\)</span> 表示 <span
+class="math inline">\(e\)</span> 有一个类型 <span
+class="math inline">\(t\)</span> ，并不意味着 <span
+class="math inline">\(e\)</span> 只有一种类型 <span
+class="math inline">\(t\)</span></p>
+</blockquote>
 <p><em>ill-typed</em>:</p>
 <p>​ 不属于 <em>well-typed</em> 与 <em>type-checks</em> 的表达式都称为
 <em>ill-typed</em></p>
@@ -315,6 +334,78 @@ class="math inline">\(e \hookrightarrow v\)</span></li>
 <li><span class="math inline">\((3+4)\times2 : int\)</span></li>
 <li><span class="math inline">\((3+4)\times2 \hookrightarrow
 14\)</span></li>
+<li><span class="math inline">\(5\div0:int\)</span></li>
+<li><span class="math inline">\(5\div0\)</span> 没有值</li>
+</ul>
+<h4 id="表达式类型的确定">2.2.1 表达式类型的确定</h4>
+<ul>
+<li>对于值来说，表达式的类型可以直接确定，如：<span
+class="math inline">\(5:\)</span> <strong>int</strong></li>
+<li>对于含运算符的表达式来说，我们通过以下两点来确定一个表达式的类型
+<ol type="1">
+<li>将运算符号看作一个函数，明确其接受参数的类型以及返回值的类型</li>
+<li>确定参与运算的每个值的类型</li>
+</ol></li>
+</ul>
+<p>举例说明：</p>
+<p>​ <span class="math inline">\(if\ e_1:\)</span> <strong>int</strong>
+<span class="math inline">\(\ and\ \ e_2:\)</span>
+<strong>int</strong></p>
+<p>​ <span class="math inline">\(and\ +\ \)</span>运算 以两个
+<strong>int</strong> 类型作为参数时，将同样返回一个 <strong>int</strong>
+类型</p>
+<p>​ <span class="math inline">\(i.e.\ \ e_1+e_2:\)</span>
+<strong>int</strong></p>
+<p>更具体地：</p>
+<p>​ <span class="math inline">\((3+4)\times2:\)</span>
+<strong>int</strong></p>
+<p>​ 因为：<span class="math inline">\(3:\)</span> <strong>int</strong>
+且 <span class="math inline">\(4:\)</span> <strong>int</strong></p>
+<p>​ 且<span class="math inline">\(\ +\ \)</span>运算 以两个
+<strong>int</strong> 类型作为参数时，将同样返回一个 <strong>int</strong>
+类型</p>
+<p>​ 所以：<span class="math inline">\((3+4):\)</span>
+<strong>int</strong></p>
+<p>​ 又因为：<span class="math inline">\((3+4):\)</span>
+<strong>int</strong> 且 <span class="math inline">\(2:\)</span>
+<strong>int</strong></p>
+<p>​ 且<span class="math inline">\(\ \times\ \)</span>运算以两个
+<strong>int</strong> 类型作为参数时，将同样返回一个 <strong>int</strong>
+类型</p>
+<p>​ 所以：<span class="math inline">\((3+4)\times2:\)</span>
+<strong>int</strong></p>
+<h2 id="扩展等价-cong">3 扩展等价<span class="math inline">\(\ \cong\
+\)</span></h2>
+<p>扩展等价描述的是同种类型表达式之间的一种等价关系</p>
+<h3 id="表达式的扩展等价">3.1 表达式的扩展等价</h3>
+<p>两个表达式是 <font color=red><em>扩展等价的</em></font>
+当两个表达式是同类型的，并且满足下列条件之一：</p>
+<ul>
+<li><font color=blue><em>两个表达式都能化简求得相同的值</em></font></li>
+<li><font color=blue><em>两个表达式都会引发相同的异常</em></font></li>
+<li><font color=blue><em>两个表达式都会永远循环下去</em></font></li>
+</ul>
+<h3 id="函数的扩展等价">3.2 函数的扩展等价</h3>
+<p>两个函数之间是 <font color=red><em>扩展等价的</em></font>
+当它们能吧等价的参数映射到等价的结果</p>
+<p>在证明中，我们用<font color=red><span class="math inline">\(\ \cong\
+\)</span></font>来表达 “ 等价于 ” 的含义</p>
+<p>例：</p>
+<ul>
+<li><p><font color=blue><span
+class="math inline">\(21+21\)</span></font><font color=red><span
+class="math inline">\(\ \cong\ \)</span></font><font color=blue><span
+class="math inline">\(42\)</span></font><font color=red><span
+class="math inline">\(\ \cong\ \)</span></font><font color=blue><span
+class="math inline">\(6\times7\)</span></font></p></li>
+<li><p><font color=blue><span
+class="math inline">\([2,7,6]\)</span></font><font color=red><span
+class="math inline">\(\ \cong\ \)</span></font><font color=blue><span
+class="math inline">\([1+1,2+5,3+3]\)</span></font></p></li>
+<li><p><font color=blue><span class="math inline">\((fn\
+x=&gt;x+x)\)</span></font><font color=red><span class="math inline">\(\
+\cong\ \)</span></font><font color=blue><span class="math inline">\((fn\
+y=&gt;2\times y)\)</span></font></p></li>
 </ul>
 
             </div>
