@@ -16,15 +16,15 @@
   <meta name="author" content="YJunJ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程： ​ 命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
+    <meta name="description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程：   命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SML学习笔记02-求值，类型，绑定与范围">
 <meta property="og:url" content="http://ryjunj.github.io/2022/04/08/SML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002-%E6%B1%82%E5%80%BC%EF%BC%8C%E7%B1%BB%E5%9E%8B%EF%BC%8C%E7%BB%91%E5%AE%9A%E4%B8%8E%E8%8C%83%E5%9B%B4/index.html">
 <meta property="og:site_name" content="YJunJ&#39;s Blog">
-<meta property="og:description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程： ​ 命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
+<meta property="og:description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程：   命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-08T15:32:28.395Z">
-<meta property="article:modified_time" content="2022-04-09T15:37:08.966Z">
+<meta property="article:modified_time" content="2022-04-10T01:55:45.180Z">
 <meta property="article:author" content="YJunJ">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17 分钟
+      16 分钟
     </span>
   
 
@@ -255,10 +255,10 @@ target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~15150/resources/lect
 <h4 id="指令式编程与函数式编程的区别">1.1.1
 指令式编程与函数式编程的区别</h4>
 <p><strong>指令式编程：</strong></p>
-<p>​ 命令 -&gt; 被执行，并且产生一个影响 -&gt;
+<p>  命令 -&gt; 被执行，并且产生一个影响 -&gt;
 该影响即是一个状态：变量的状态被改变（如：命令执行完后变量x=5）</p>
 <p><strong>函数式编程：</strong></p>
-<p>​ 表达式 -&gt; 被求值，并且不会产生影响 -&gt;
+<p>  表达式 -&gt; 被求值，并且不会产生影响 -&gt;
 仅得到一个值而已（如：表达式被求值完仅得到3+4这个值）</p>
 <h3 id="编程是一个阐明的过程">1.2 编程是一个阐明的过程</h3>
 <p>面对一个问题进行编程时，我们需要先<strong>阐明</strong>该问题中的不变量、规范以及我们算法正确性的证明。都阐明完毕后我们最后才开始针对问题进行编程。</p>
@@ -301,19 +301,20 @@ class="math inline">\(+\)</span> 一个字符串会得到什么类型</li>
 <h4 id="well-typed-type-checks-以及-ill-typed">2.1.1 <em>well-typed,
 type-checks</em> 以及 <em>ill-typed</em></h4>
 <p><em>well-typed</em> 与 <em>type-checks</em>:</p>
-<p>​ 当一个表达式<strong>至少存在一种</strong>类型时即可称其为
+<p>  当一个表达式<strong>至少存在一种</strong>类型时即可称其为
 <em>well-typed</em> 或 <em>type-checks</em></p>
 <blockquote>
 <p><font color=red><strong>注意：</strong></font></p>
-<p>​ 符号 “ <span class="math inline">\(:\)</span> ”表示 “有一个类型”</p>
-<p>​ 如：<span class="math inline">\(e:t\)</span> 表示 <span
+<p>  符号 “ <span class="math inline">\(:\)</span> ”表示
+“有一个类型”</p>
+<p>  如：<span class="math inline">\(e:t\)</span> 表示 <span
 class="math inline">\(e\)</span> 有一个类型 <span
 class="math inline">\(t\)</span> ，并不意味着 <span
 class="math inline">\(e\)</span> 只有一种类型 <span
 class="math inline">\(t\)</span></p>
 </blockquote>
 <p><em>ill-typed</em>:</p>
-<p>​ 不属于 <em>well-typed</em> 与 <em>type-checks</em> 的表达式都称为
+<p>  不属于 <em>well-typed</em> 与 <em>type-checks</em> 的表达式都称为
 <em>ill-typed</em></p>
 <h4 id="类型与-ml-编译器">2.1.2 类型与 ML 编译器</h4>
 <p><font color=#FF0000>首先</font>对表达式做一个
@@ -348,31 +349,32 @@ class="math inline">\(5:\)</span> <strong>int</strong></li>
 </ol></li>
 </ul>
 <p>举例说明：</p>
-<p>​ <span class="math inline">\(if\ e_1:\)</span> <strong>int</strong>
+<p>  <span class="math inline">\(if\ e_1:\)</span> <strong>int</strong>
 <span class="math inline">\(\ and\ \ e_2:\)</span>
 <strong>int</strong></p>
-<p>​ <span class="math inline">\(and\ +\ \)</span>运算 以两个
+<p>  <span class="math inline">\(and\ +\ \)</span>运算 以两个
 <strong>int</strong> 类型作为参数时，将同样返回一个 <strong>int</strong>
 类型</p>
-<p>​ <span class="math inline">\(i.e.\ \ e_1+e_2:\)</span>
+<p>  <span class="math inline">\(i.e.\ \ e_1+e_2:\)</span>
 <strong>int</strong></p>
 <p>更具体地：</p>
-<p>​ <span class="math inline">\((3+4)\times2:\)</span>
+<p>  <span class="math inline">\((3+4)\times2:\)</span>
 <strong>int</strong></p>
-<p>​ 因为：<span class="math inline">\(3:\)</span> <strong>int</strong>
-且 <span class="math inline">\(4:\)</span> <strong>int</strong></p>
-<p>​ 且<span class="math inline">\(\ +\ \)</span>运算 以两个
+<p>    因为：<span class="math inline">\(3:\)</span>
+<strong>int</strong> 且 <span class="math inline">\(4:\)</span>
+<strong>int</strong></p>
+<p>    且<span class="math inline">\(\ +\ \)</span>运算 以两个
 <strong>int</strong> 类型作为参数时，将同样返回一个 <strong>int</strong>
 类型</p>
-<p>​ 所以：<span class="math inline">\((3+4):\)</span>
+<p>    所以：<span class="math inline">\((3+4):\)</span>
 <strong>int</strong></p>
-<p>​ 又因为：<span class="math inline">\((3+4):\)</span>
+<p>    又因为：<span class="math inline">\((3+4):\)</span>
 <strong>int</strong> 且 <span class="math inline">\(2:\)</span>
 <strong>int</strong></p>
-<p>​ 且<span class="math inline">\(\ \times\ \)</span>运算以两个
+<p>    且<span class="math inline">\(\ \times\ \)</span>运算以两个
 <strong>int</strong> 类型作为参数时，将同样返回一个 <strong>int</strong>
 类型</p>
-<p>​ 所以：<span class="math inline">\((3+4)\times2:\)</span>
+<p>  所以：<span class="math inline">\((3+4)\times2:\)</span>
 <strong>int</strong></p>
 <h2 id="扩展等价-cong">3 扩展等价<span class="math inline">\(\ \cong\
 \)</span></h2>
