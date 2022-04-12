@@ -24,7 +24,7 @@
 <meta property="og:description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程：   命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-08T15:32:28.395Z">
-<meta property="article:modified_time" content="2022-04-10T01:55:45.180Z">
+<meta property="article:modified_time" content="2022-04-12T15:17:57.031Z">
 <meta property="article:author" content="YJunJ">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.3k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16 分钟
+      20 分钟
     </span>
   
 
@@ -298,7 +298,12 @@ class="math inline">\(5\)</span> 自然也是表达式</p>
 就没有类型，因为我们无法预测出一个整型 <span
 class="math inline">\(+\)</span> 一个字符串会得到什么类型</li>
 </ul>
-<h4 id="well-typed-type-checks-以及-ill-typed">2.1.1 <em>well-typed,
+<h4 id="ml语言的类型">2.1.1ML语言的类型</h4>
+<p><strong>基本类型</strong></p>
+<p>  int, real, bool, char, string</p>
+<p><strong>构造类型</strong></p>
+<p>  乘积类型，函数类型，用户定义类型</p>
+<h4 id="well-typed-type-checks-以及-ill-typed">2.1.2 <em>well-typed,
 type-checks</em> 以及 <em>ill-typed</em></h4>
 <p><em>well-typed</em> 与 <em>type-checks</em>:</p>
 <p>  当一个表达式<strong>至少存在一种</strong>类型时即可称其为
@@ -316,7 +321,7 @@ class="math inline">\(t\)</span></p>
 <p><em>ill-typed</em>:</p>
 <p>  不属于 <em>well-typed</em> 与 <em>type-checks</em> 的表达式都称为
 <em>ill-typed</em></p>
-<h4 id="类型与-ml-编译器">2.1.2 类型与 ML 编译器</h4>
+<h4 id="类型与-ml-编译器">2.1.3 类型与 ML 编译器</h4>
 <p><font color=#FF0000>首先</font>对表达式做一个
 <font color=blue><em>type-checks</em></font></p>
 <p>如果表达式是 <font color=red><em>well-typed</em></font></p>
@@ -409,6 +414,38 @@ x=&gt;x+x)\)</span></font><font color=red><span class="math inline">\(\
 \cong\ \)</span></font><font color=blue><span class="math inline">\((fn\
 y=&gt;2\times y)\)</span></font></p></li>
 </ul>
+<h4 id="函数式编程的参考通透">3.2.1 函数式编程的参考通透</h4>
+<p>函数式编程的参考通透意为：</p>
+<ul>
+<li>表达式的值仅取决于其子表达式的值</li>
+<li>表达式的类型仅取决于其子表达式的类型</li>
+</ul>
+<h2 id="乘积表达式">4 乘积表达式</h2>
+<p><span class="math inline">\((e_1,e_2):t_1* t2\)</span></p>
+<p>  <span class="math inline">\(if\ e_1:t_1\ and\ e_2:t_2\)</span></p>
+<p>类型：<span class="math inline">\(t_1*t_2\)</span></p>
+<p>值：<span class="math inline">\((e_1,e_2)\)</span></p>
+<p>例：</p>
+<p>  <span class="math inline">\((3+4,true):int*bool\)</span></p>
+<h2 id="函数">5 函数</h2>
+<p>在数学中，我们会说一个函数 <span class="math inline">\(f\)</span> 将
+<span class="math inline">\(X\)</span> 空间映射到 <span
+class="math inline">\(Y\)</span> 空间，记作<span
+class="math display">\[f:X\to Y\]</span></p>
+<p>在 SML 中同样如此，只是 <span class="math inline">\(X\)</span> 和
+<span class="math inline">\(Y\)</span> 变成了类型</p>
+<p><font color=red><strong>注意：</strong></font></p>
+<p>  在计算时，一个函数不总会返回一个值。此时检查等价性会变得复杂。</p>
+<h3 id="函数的完全性">5.1函数的完全性</h3>
+<p><strong>定义：</strong></p>
+<p>  当对于 <span class="math inline">\(X\)</span> 中的每一个值 <span
+class="math inline">\(x\)</span> , <span
+class="math inline">\(f(x)\)</span> 都能返回一个值，则称该函数 <span
+class="math inline">\(f\)</span>
+是<font color=red><strong><em>完全的</em></strong></font></p>
+<blockquote>
+<p><strong>完全性</strong>是数学和计算之间的一个关键区别</p>
+</blockquote>
 
             </div>
             <hr>
