@@ -24,7 +24,7 @@
 <meta property="og:description" content="参考：CMU 15-150 Lecture01  1 SML语言哲学  计算是函数式的 编程是一个阐明的过程  1.1 计算是函数式的 所有的计算都可以看成是函数式的 函数将值（等号左侧的值）映射到另一个值上（等号右侧的值） 1.1.1 指令式编程与函数式编程的区别 指令式编程：   命令 -&gt; 被执行，并且产生一个影响 -&gt; 该影响即是一个状态：变量">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-08T15:32:28.395Z">
-<meta property="article:modified_time" content="2022-04-13T15:21:20.282Z">
+<meta property="article:modified_time" content="2022-04-13T15:31:53.782Z">
 <meta property="article:author" content="YJunJ">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -458,7 +458,7 @@ class="math inline">\(f\)</span>
 </blockquote>
 <p>例：</p>
 <figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fsharp"><span class="hljs-keyword">val</span> x<span class="hljs-operator">:</span><span class="hljs-type">int</span> <span class="hljs-operator">=</span> <span class="hljs-number">8</span><span class="hljs-number">-5</span>;		<span class="hljs-comment">//意为[3/x]</span><br><span class="hljs-keyword">val</span> y<span class="hljs-operator">:</span><span class="hljs-type">int</span> <span class="hljs-operator">=</span> x<span class="hljs-operator">+</span><span class="hljs-number">1</span>;		<span class="hljs-comment">//意为[4/y]</span><br><span class="hljs-keyword">val</span> x<span class="hljs-operator">:</span><span class="hljs-type">int</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;			<span class="hljs-comment">//意为[10/x]</span><br><span class="hljs-keyword">val</span> z<span class="hljs-operator">:</span><span class="hljs-type">int</span> <span class="hljs-operator">=</span> x<span class="hljs-operator">+</span><span class="hljs-number">1</span>;		<span class="hljs-comment">//意为[x+1]</span><br></code></pre></td></tr></table></figure>
-<h4 id="本地声明">6.2 本地声明</h4>
+<h3 id="本地声明">6.2 本地声明</h3>
 <p>本地声明也即 let...in...end 语句</p>
 <p>其中let之后，in之前的语句用来声明变量，这些变量的<strong>作用域</strong>仅限于<strong>in之后，end之前</strong>的区域。</p>
 <p>in之后，end之前<strong>仅</strong>能写<strong>一条</strong>语句，<strong>该语句的值和类型将作为此本地声明语句的值和类型</strong>。并且这条<strong>仅</strong>能使用上文let后所<strong>声明过的</strong>变量</p>
@@ -477,7 +477,7 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhUAAABXCAYAAACz67cwAAAAAXNSR
 结束本地声明表达式后，我们尝试再次访问其内定义过的 m
 变量，发现无法访问： "stdIn: 18.1 Error: unbound variable or
 constructor: m"</p>
-<h4 id="类型定义表达式">6.3 类型定义表达式</h4>
+<h3 id="类型定义表达式">6.3 类型定义表达式</h3>
 <p>例：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">type</span> <span class="hljs-type">float</span> = <span class="hljs-type">real</span>;				//定义 <span class="hljs-type">float</span> 类型<br><span class="hljs-keyword">type</span> <span class="hljs-type">point</span> = <span class="hljs-type">float</span>*<span class="hljs-type">float</span>;		//定义 <span class="hljs-type">point</span> 类型<br>val p:<span class="hljs-type">point</span> = (<span class="hljs-number">1.0</span>,<span class="hljs-number">2.6</span>);		//定义 <span class="hljs-type">point</span> 类型的变量 p<br></code></pre></td></tr></table></figure>
 <p><strong>运行图例</strong></p>
